@@ -215,3 +215,7 @@ section .details span {
 .uploaded-area i.fa-check {
     font-size: 16px;
 }
+
+.bounding-box {
+    width: 100%;
+}
