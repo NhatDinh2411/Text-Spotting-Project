@@ -83,7 +83,6 @@ executeButton.onclick = async () => {
   const imgElement = document.querySelector(".uploaded-image");
   const imgSrc = imgElement.src;
   const modelOCR = document.getElementById('models_OCR').value
-  
   if (imgSrc) {
     try {
       const formData = new FormData();
@@ -105,6 +104,7 @@ executeButton.onclick = async () => {
 
       const result = await apiResponse.json();
       console.log(result['prediction']);
+      printDetectedText(result['prediction'])
       drawBoundingBoxes(result['prediction'])
       
     } catch (error) {
@@ -112,9 +112,17 @@ executeButton.onclick = async () => {
     }
   } else {
     console.error("No file or image source selected.");
-  };
+  }
 }
-
+function printDetectedText(detectedObjects) {
+    const textArea = document.getElementsByClassName('text-display-area')[0]
+    detectedObjects.forEach((obj) => {
+      text = obj[1]
+      var word = document.createElement('p')
+      word.innerHTML = text
+      textArea.appendChild(word)
+    });
+}
 function drawBoundingBoxes(detectedObjects) {
   const canvas = document.getElementsByClassName("bounding-box")[0];
   const context = canvas.getContext("2d");

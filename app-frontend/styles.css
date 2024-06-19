@@ -230,3 +230,13 @@ section .details span {
     color: #000;
     cursor: pointer;
 }
+.text-display-area {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10%;
+    margin: 3%;
+    flex-wrap: wrap;
+    margin-inline: auto;
+}
