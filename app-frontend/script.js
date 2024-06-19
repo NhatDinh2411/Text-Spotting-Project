@@ -115,7 +115,8 @@ executeButton.onclick = async () => {
   }
 }
 function printDetectedText(detectedObjects) {
-    const textArea = document.getElementsByClassName('text-display-area')[0]
+  const textArea = document.getElementsByClassName('text-display-area')[0]
+  textArea.style.visibility = 'visible'
     detectedObjects.forEach((obj) => {
       text = obj[1]
       var word = document.createElement('p')

@@ -239,4 +239,8 @@ section .details span {
     margin: 3%;
     flex-wrap: wrap;
     margin-inline: auto;
+    border-radius: 10px;
+    border: #6990F2 solid;
+    visibility: hidden;
+    padding: 10px;
 }
