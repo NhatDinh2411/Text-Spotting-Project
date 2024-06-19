@@ -67,15 +67,11 @@ function displayImage(src) {
   column_1.classList.add("column");
   column_1.appendChild(imgElement_1);
 
-  let imgElement_2 = document.createElement("img");
-  imgElement_2.classList.add("output-image");
-
   let canvas = document.createElement("canvas")
   canvas.classList.add("bounding-box")
 
   let column_2 = document.createElement("div");
   column_2.classList.add("column");
-  column_2.appendChild(imgElement_2);
   column_2.appendChild(canvas)
   
 
@@ -87,6 +83,7 @@ executeButton.onclick = async () => {
   const imgElement = document.querySelector(".uploaded-image");
   const imgSrc = imgElement.src;
   const modelOCR = document.getElementById('models_OCR').value
+  
   if (imgSrc) {
     try {
       const formData = new FormData();
@@ -109,46 +106,49 @@ executeButton.onclick = async () => {
       const result = await apiResponse.json();
       console.log(result['prediction']);
       drawBoundingBoxes(result['prediction'])
-      // displayResult(result.prediction);
+      
     } catch (error) {
       console.error("Error during API call:", error);
     }
   } else {
     console.error("No file or image source selected.");
-  }
-};
+  };
+}
 
 function drawBoundingBoxes(detectedObjects) {
-  const canvas = document.getElementsByClassName('bounding-box')[0];
-  const context = canvas.getContext('2d');
-  const outputImage = document.getElementsByClassName('output-image');
-  const uploadedImage = document.getElementsByClassName('uploaded-image')[0]
-  //image.src = document.getElementsByClassName('uploaded-image')[0].src
+  const canvas = document.getElementsByClassName("bounding-box")[0];
+  const context = canvas.getContext("2d");
+  //const outputImage = document.getElementsByClassName("output-image");
+  const uploadedImage = document.getElementsByClassName("uploaded-image")[0];
+  
+  const img = new Image();
+  img.onload = function() {
+    canvas.width = img.width;
+    canvas.height = img.height;
+    context.drawImage(img, 0, 0);
+
+    detectedObjects.forEach((obj) => {
+      drawBoundingBox(obj);
+    });
+  };
+  img.src = uploadedImage.src;
+
   function drawBoundingBox(arr) {
-    console.log(arr)
     context.beginPath();
-    points = arr[0]
-    console.log(points)
+    points = arr[0];
     context.moveTo(points[0][0], points[0][1]);
     for (let i = 1; i < points.length; i++) {
-        context.lineTo(points[i][0], points[i][1]);
+      context.lineTo(points[i][0], points[i][1]);
     }
     context.closePath();
     context.lineWidth = 2;
-    context.strokeStyle = 'red';
+    context.strokeStyle = "red";
     context.stroke();
-
-    context.font = '16px Arial';
-    context.fillStyle = 'red';
+    context.font = "Bold 13px Arial";
+    context.fillStyle = "red";
     context.fillText(arr[1], points[0][0], points[0][1] - 10);
   }
-  detectedObjects.forEach(obj => {
+  detectedObjects.forEach((obj) => {
     drawBoundingBox(obj);
   });
-
-  // Convert canvas content to an image and display it
-  const image = new Image();
-  image.src = canvas.toDataURL();
-  document.getElementsByClassName('output-image')[0].src = image.src;
 }
-
