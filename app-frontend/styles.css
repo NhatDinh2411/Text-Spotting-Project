@@ -66,10 +66,8 @@ p {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    flex: 1;  
+    flex: 1;
 }
-
-
 
 .extract-button {
     max-width: 200px;
@@ -77,8 +75,7 @@ p {
 }
 
 /* Import Google font - Poppins */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 
 .image-display-area {
     display: flex;
@@ -89,7 +86,7 @@ p {
 
 .image-display-area img {
     width: 100%;
-    max-width: 100%
+    max-width: 100%;
 }
 
 .image-display-area .column {
@@ -105,7 +102,7 @@ p {
 }
 
 .wrapper header {
-    color: #6990F2;
+    color: #6990f2;
     font-size: 27px;
     font-weight: 600;
     text-align: center;
@@ -120,11 +117,11 @@ p {
     justify-content: center;
     flex-direction: column;
     border-radius: 5px;
-    border: 2px dashed #6990F2;
+    border: 2px dashed #6990f2;
 }
 
 form :where(i, p) {
-    color: #6990F2;
+    color: #6990f2;
 }
 
 form i {
@@ -138,7 +135,7 @@ form p {
 
 section .row {
     margin-bottom: 10px;
-    background: #E9F0FF;
+    background: #e9f0ff;
     list-style: none;
     padding: 15px 20px;
     border-radius: 5px;
@@ -148,7 +145,7 @@ section .row {
 }
 
 section .row i {
-    color: #6990F2;
+    color: #6990f2;
     font-size: 30px;
 }
 
@@ -179,7 +176,7 @@ section .details span {
 .content .progress-bar .progress {
     height: 100%;
     width: 0%;
-    background: #6990F2;
+    background: #6990f2;
     border-radius: inherit;
 }
 
@@ -217,5 +214,6 @@ section .details span {
 }
 
 .bounding-box {
-    width: 100%;
+    padding: 0;
+    margin: 0;
 }
