@@ -219,3 +219,14 @@ section .details span {
 .bounding-box {
     width: 100%;
 }
+
+#models_OCR {
+    width: 10%;
+    font-size:90%;
+    padding: 3px;
+    background-color: #fff;
+    border: 1px solid #caced1;
+    border-radius: 0.25rem;
+    color: #000;
+    cursor: pointer;
+}

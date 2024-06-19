@@ -86,21 +86,14 @@ function displayImage(src) {
 executeButton.onclick = async () => {
   const imgElement = document.querySelector(".uploaded-image");
   const imgSrc = imgElement.src;
-  const imgFile = imgElement.files ? imgElement.files[0] : null;
-  result = [[[[[655.5465087890625, 278.1545104980469], [973.88720703125, 284.02783203125], [972.230224609375, 373.8377380371094], [653.8895263671875, 367.96441650390625]], "BANNER"], [[[98.01776123046875, 253.68084716796875], [516.7345581054688, 268.2773132324219], [513.3653564453125, 364.926513671875], [94.6485595703125, 350.3300476074219]], "NOW"], [[[549.7171020507812, 274.3227844238281], [627.9052734375, 273.30560302734375], [629.0979614257812, 364.9856872558594], [550.9097900390625, 366.00286865234375]], "NEW"], [[[648.6233520507812, 616.755126953125], [832.076904296875, 616.3633422851562], [832.4296264648438, 781.5313720703125], [648.97607421875, 781.9231567382812]], "ONLINE"]]];
-  drawBoundingBoxes(result[0])
-  /*
-  if (imgFile || imgSrc) {
+  const modelOCR = document.getElementById('models_OCR').value
+  if (imgSrc) {
     try {
       const formData = new FormData();
-
-      if (imgFile) {
-        formData.append("file", imgFile);
-      } else if (imgSrc) {
-        const response = await fetch(imgSrc);
-        const blob = await response.blob();
-        formData.append("file", blob, "image.jpg");
-      }
+      const response = await fetch(imgSrc);
+      const blob = await response.blob();
+      formData.append("file", blob, "image.jpg");
+      formData.append("model", modelOCR);
       const apiResponse = await fetch("http://127.0.0.1:8000/predict", {
         method: "POST",
         body: formData,
@@ -114,10 +107,8 @@ executeButton.onclick = async () => {
       }
 
       const result = await apiResponse.json();
-      console.log(result)
-      
-      result = [[[[[655.5465087890625, 278.1545104980469], [973.88720703125, 284.02783203125], [972.230224609375, 373.8377380371094], [653.8895263671875, 367.96441650390625]], "BANNER"], [[[98.01776123046875, 253.68084716796875], [516.7345581054688, 268.2773132324219], [513.3653564453125, 364.926513671875], [94.6485595703125, 350.3300476074219]], "NOW"], [[[549.7171020507812, 274.3227844238281], [627.9052734375, 273.30560302734375], [629.0979614257812, 364.9856872558594], [550.9097900390625, 366.00286865234375]], "NEW"], [[[648.6233520507812, 616.755126953125], [832.076904296875, 616.3633422851562], [832.4296264648438, 781.5313720703125], [648.97607421875, 781.9231567382812]], "ONLINE"]]];
-      drawBoundingBoxes(result[0])
+      console.log(result['prediction']);
+      drawBoundingBoxes(result['prediction'])
       // displayResult(result.prediction);
     } catch (error) {
       console.error("Error during API call:", error);
@@ -125,7 +116,6 @@ executeButton.onclick = async () => {
   } else {
     console.error("No file or image source selected.");
   }
-  */
 };
 
 function drawBoundingBoxes(detectedObjects) {
@@ -135,6 +125,7 @@ function drawBoundingBoxes(detectedObjects) {
   const uploadedImage = document.getElementsByClassName('uploaded-image')[0]
   //image.src = document.getElementsByClassName('uploaded-image')[0].src
   function drawBoundingBox(arr) {
+    console.log(arr)
     context.beginPath();
     points = arr[0]
     console.log(points)
