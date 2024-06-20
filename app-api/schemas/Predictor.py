@@ -20,7 +20,6 @@ async def predict(file: UploadFile = File(...), model: str = Form('paddle')):
         elif model == 'glass':
             prediction = glass_model.predict(image)
         
-        image.save("./Project/images/img_1.jpg")        
         return {"prediction": prediction}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"An error occurred during prediction: {e}")
