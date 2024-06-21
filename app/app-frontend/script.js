@@ -58,6 +58,11 @@ function displayImageFromURL(url) {
 function displayImage(src) {
   // Clear the image display area
   imageDisplayArea.innerHTML = "";
+  const textArea = document.getElementsByClassName('text-display-area')[0]
+  textArea.style.visibility = 'hidden'
+  while (textArea.firstChild) {
+    textArea.removeChild(textArea.lastChild);
+  }
 
   let imgElement_1 = document.createElement("img");
   imgElement_1.src = src;
@@ -73,7 +78,7 @@ function displayImage(src) {
   let column_2 = document.createElement("div");
   column_2.classList.add("column");
   column_2.appendChild(canvas)
-  
+
 
   imageDisplayArea.appendChild(column_1);
   imageDisplayArea.appendChild(column_2);
@@ -106,7 +111,7 @@ executeButton.onclick = async () => {
       console.log(result['prediction']);
       printDetectedText(result['prediction'])
       drawBoundingBoxes(result['prediction'])
-      
+
     } catch (error) {
       console.error("Error during API call:", error);
     }
@@ -117,21 +122,21 @@ executeButton.onclick = async () => {
 function printDetectedText(detectedObjects) {
   const textArea = document.getElementsByClassName('text-display-area')[0]
   textArea.style.visibility = 'visible'
-    detectedObjects.forEach((obj) => {
-      text = obj[1]
-      var word = document.createElement('p')
-      word.innerHTML = text
-      textArea.appendChild(word)
-    });
+  detectedObjects.forEach((obj) => {
+    text = obj[1]
+    var word = document.createElement('p')
+    word.innerHTML = text
+    textArea.appendChild(word)
+  });
 }
 function drawBoundingBoxes(detectedObjects) {
   const canvas = document.getElementsByClassName("bounding-box")[0];
   const context = canvas.getContext("2d");
   //const outputImage = document.getElementsByClassName("output-image");
   const uploadedImage = document.getElementsByClassName("uploaded-image")[0];
-  
+
   const img = new Image();
-  img.onload = function() {
+  img.onload = function () {
     canvas.width = img.width;
     canvas.height = img.height;
     context.drawImage(img, 0, 0);
